@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 
 	public class BlockOutbackDirt extends Block {
 
-		public BlockOutbackDirt(int id, int texture, Material mat){
+		public BlockOutbackDirt(int id, Material mat){
 			super(id, mat);
 			this.setCreativeTab(aussiecraft.tabAussieCraft);
 		}

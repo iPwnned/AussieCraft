@@ -13,6 +13,5 @@ public class BlockGumLog extends Block {
 	public BlockGumLog(int par1, int par2, Material par3Material) {
 		super(par1, par3Material);
 		this.setCreativeTab(aussiecraft.tabAussieCraft);
-		this.field_94336_cN = iconRegister.func_94245_a("aussiecraft:gumLog");
 	}
 	}

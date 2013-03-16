@@ -33,6 +33,14 @@ public class AusWorldGen implements IWorldGenerator {
         	(new WorldGenAusTree(false, 6, 0, 0, false)).generate(world, random, xCoord, yCoord, zCoord);
 			
 		}	
+		for(int i = 0; i < 3; i++){
+        	int xCoord = chunkX + random.nextInt(16);
+        	int yCoord = random.nextInt(16);
+        	int zCoord = chunkZ + random.nextInt(16);
+        	
+        	(new WorldGenMinable(aussiecraft.pinkOre.blockID, 6)).generate(world, random, xCoord, yCoord, zCoord);
+        		
+        	}
 	}
 
 	private void generateNether(World world, Random random, int i, int j) {

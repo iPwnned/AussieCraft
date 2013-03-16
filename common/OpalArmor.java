@@ -17,12 +17,12 @@ public class OpalArmor extends ItemArmor implements IArmorTextureProvider {
 	@Override
 	public String getArmorTextureFile(ItemStack itemstack) {
 		if(itemstack.itemID == aussiecraft.opalHelmet.itemID || itemstack.itemID == aussiecraft.opalPlate.itemID || itemstack.itemID == aussiecraft.opalBoots.itemID){
-			return "/aussiecraft/opal_1.png";
+			return "aussiecraft:opal_1";
 		}
 		if(itemstack.itemID == aussiecraft.opalLegs.itemID){
-			return "/aussiecraft/opal_2.png";
+			return "aussiecraft:opal_2";
 		}
-		else return "/aussiecraft/opal_2.png";
+		else return "aussiecraft:opal_2";
 	}
 	public String getTextureFile(){
 		return "/aussiecraft/aussiecraft_items.png";
