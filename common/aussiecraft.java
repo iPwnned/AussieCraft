@@ -3,6 +3,7 @@ package mods.aussiecraft.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -32,11 +34,14 @@ public class aussiecraft {
 
 	public BiomeGenBase outbackBiome = new BiomeOutback(40);
 
-	public static EnumToolMaterial OPAL = EnumHelper.addToolMaterial("OPAL", 2, 400, 7.0F, 6, 10);
-	public static EnumToolMaterial DOPAL = EnumHelper.addToolMaterial("DOPAL", 3, 650, 10.0F, 9, 10);
+	public static EnumToolMaterial OPAL = EnumHelper.addToolMaterial("OPAL", 2, 400, 7.0F, 3, 10);
+	public static EnumToolMaterial OPPAL = EnumHelper.addToolMaterial("OPPAL", 2, 400, 7.0F, 6, 10);
+	public static EnumToolMaterial DOPAL = EnumHelper.addToolMaterial("DOPAL", 3, 650, 10.0F, 4, 10);
+	public static EnumToolMaterial DOPPAL = EnumHelper.addToolMaterial("DOPPAL", 3, 650, 10.0F, 9, 10);
 	public static EnumArmorMaterial OPALL = EnumHelper.addArmorMaterial("OPAL_ARMOUR", 23, new int[]{2, 6, 5, 2} ,10);
 	public static EnumArmorMaterial DOPALL = EnumHelper.addArmorMaterial("DOPAL_ARMOUR", 40, new int[]{4, 8, 6, 3} ,20);
-	public static EnumToolMaterial PINKD = EnumHelper.addToolMaterial("PINKD", 3, 650, 10.0F, 9, 10);
+	public static EnumToolMaterial PINKD = EnumHelper.addToolMaterial("PINKD", 3, 650, 10.0F, 4, 10);
+	public static EnumToolMaterial PINKDD = EnumHelper.addToolMaterial("PINKDD", 3, 650, 10.0F, 9, 10);
 	public static EnumArmorMaterial PINKDI = EnumHelper.addArmorMaterial("PINKD_ARMOUR", 40, new int[]{4, 8, 6, 3} ,20);
 	
 	public static CreativeTabs tabAussieCraft = new CreativeTabAus("AussieCraft");
@@ -81,6 +86,9 @@ public class aussiecraft {
 	public static Item pinkAxe;
 	public static Item pinkShovel;
 	public static Item pinkHoe;
+	public static Block enrichedCoal;
+	public static Item Enrichedcoal;
+	public static Item pinkdBow;
 
 	
 	int testOreID;
@@ -121,6 +129,9 @@ public class aussiecraft {
 	int pinkAxeID;
 	int pinkShovelID;
 	int pinkHoeID;
+	int enrichedCoalID;
+	int EnrichedcoalID;
+	int pinkdBowID;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -131,6 +142,8 @@ public class aussiecraft {
 		gumLeavesID = config.get("Block IDs", "Eucalyptus Leaves ID", 1961).getInt();
 		testOreID = config.get("Block IDs", "Test Ore ID", 1950).getInt();
 		pinkOreID = config.get("Block IDs", "Pink Diamond Ore ID", 1981).getInt();
+		enrichedCoalID = config.get("Block IDs", "Inriched Coal Ore ID", 1888).getInt();
+		EnrichedcoalID = config.get("Block IDs", "Inriched Coal", 1889).getInt();
 		
 		opalIngotID = config.get("Item IDs", "Opal Ingot ID", 1953).getInt();
 		opalPickaxeID = config.get("Item IDs", "Opal Pickaxe ID", 1954).getInt();
@@ -162,6 +175,7 @@ public class aussiecraft {
 		pinkAxeID = config.get("Item IDs", "Pink Diamond Axe ID", 1885).getInt();
 		pinkShovelID = config.get("Item IDs", "Pink Diamond Shovel ID", 1886).getInt();
 		pinkHoeID = config.get("Item IDs", "Pink Diamond Hoe ID", 1887).getInt();
+		pinkdBowID = config.get("Item IDs", "Pink Diamond Bow ID", 1890).getInt();
 		
 		damperID = config.get("Item IDs", "Damper ID", 1962).getInt();
 				
@@ -177,7 +191,7 @@ public class aussiecraft {
 		opalIngot = new ItemOpalIngot(opalIngotID).setUnlocalizedName("aussiecraft:opalIngot");
 		pinkDiamond = new ItemPinkDiamond(pinkDiamondID).setUnlocalizedName("aussiecraft:pinkDiamond");
 		opalPickaxe = new ItemOpalPickaxe(opalPickaxeID, OPAL).setUnlocalizedName("aussiecraft:opalPickaxe");
-		opalSword = new ItemOpalSword(opalSwordID, OPAL).setUnlocalizedName("aussiecraft:opalSword");
+		opalSword = new ItemOpalSword(opalSwordID, OPPAL).setUnlocalizedName("aussiecraft:opalSword");
 		opalAxe = new ItemOpalAxe(opalAxeID, OPAL).setUnlocalizedName("aussiecraft:opalAxe");
 		opalShovel = new ItemOpalShovel(opalShovelID, OPAL).setUnlocalizedName("aussiecraft:opalShovel");
 		opalHoe = new ItemOpalHoe(opalHoeID, OPAL).setUnlocalizedName("aussiecraft:opalHoe");
@@ -190,10 +204,9 @@ public class aussiecraft {
 		opalLegs = new OpalArmor(opalLegsID, OPALL, proxy.addArmor("Opal"), 2).setUnlocalizedName("aussiecraft:opalLegs");
 		opalBoots = new OpalArmor(opalBootsID, OPALL, proxy.addArmor("Opal"), 3).setUnlocalizedName("aussiecraft:opalBoots");
 		outbackBlock1 = new Block(outbackBlock1ID, Material.grass).setUnlocalizedName("aussiecraft:outbackBlock1").setCreativeTab(aussiecraft.tabAussieCraft).setHardness(0.2F).setStepSound(Block.soundGrassFootstep);
-		infusedCoal = new ItemInfusedCoal(infusedCoalID).setUnlocalizedName("aussiecraft:infusedCoal");
 		darkOpal = new ItemDarkOpal(darkOpalID).setUnlocalizedName("aussiecraft:darkOpal");
 		dopalPickaxe = new ItemDopalPickaxe(dopalPickaxeID, DOPAL).setUnlocalizedName("aussiecraft:dopalPickaxe");
-		dopalSword = new ItemDopalSword(dopalSwordID, DOPAL).setUnlocalizedName("aussiecraft:dopalSword");
+		dopalSword = new ItemDopalSword(dopalSwordID, DOPPAL).setUnlocalizedName("aussiecraft:dopalSword");
 		dopalAxe = new ItemDopalAxe(dopalAxeID, DOPAL).setUnlocalizedName("aussiecraft:dopalAxe");
 		dopalShovel = new ItemDopalShovel(dopalShovelID, DOPAL).setUnlocalizedName("aussiecraft:dopalShovel");
 		dopalHoe = new ItemDopalHoe(dopalHoeID, DOPAL).setUnlocalizedName("aussiecraft:dopalHoe");
@@ -205,10 +218,14 @@ public class aussiecraft {
 		outbackBlock2 = new Block(outbackBlock2ID, Material.rock).setUnlocalizedName("aussiecraft:outbackBlock2").setCreativeTab(aussiecraft.tabAussieCraft).setHardness(4.0F).setStepSound(Block.soundStoneFootstep);
 		pinkOre = new BlockPinkOre(pinkOreID, Material.rock).setUnlocalizedName("aussiecraft:pinkOre").setCreativeTab(aussiecraft.tabAussieCraft).setHardness(4.0F);
 		pinkPickaxe = new ItemPinkPickaxe(pinkPickaxeID, PINKD).setUnlocalizedName("aussiecraft:pinkPickaxe");
-		pinkSword = new ItemPinkSword(pinkSwordID, PINKD).setUnlocalizedName("aussiecraft:pinkSword");
+		pinkSword = new ItemPinkSword(pinkSwordID, PINKDD).setUnlocalizedName("aussiecraft:pinkSword");
 		pinkAxe = new ItemPinkAxe(pinkAxeID, PINKD).setUnlocalizedName("aussiecraft:pinkAxe");
 		pinkShovel = new ItemPinkShovel(pinkShovelID, PINKD).setUnlocalizedName("aussiecraft:pinkShovel");
 		pinkHoe = new ItemPinkHoe(pinkHoeID, PINKD).setUnlocalizedName("aussiecraft:pinkHoe");
+		enrichedCoal = new BlockInrichedCoal(enrichedCoalID, Material.rock).setUnlocalizedName("aussiecraft:enrichedOre").setHardness(4F).setResistance(26F).setStepSound(Block.soundStoneFootstep);
+		Enrichedcoal = new ItemInrichedCoal(EnrichedcoalID).setUnlocalizedName("aussiecraft:Enrichedcoal");
+		infusedCoal = new ItemInfusedCoal(infusedCoalID).setUnlocalizedName("aussiecraft:infusedCoal");
+		pinkdBow = new pinkdBow(pinkdBowID).setUnlocalizedName("aussiecraft:pinkdBow");
 		
 		System.out.println("Terrain block IDs are: " + outbackBlock1ID + outbackBlock2ID);
 		
@@ -222,9 +239,20 @@ public class aussiecraft {
 		GameRegistry.addSmelting(opalOreID, new ItemStack(opalIngot, 1), 1F);
 		GameRegistry.registerWorldGenerator(new AusWorldGen());
 		GameRegistry.addBiome(outbackBiome);
+		
+		EntityRegistry.registerModEntity(EnityAus.class, "AusEnity", 1, this, 80, 3, true);
+		EntityRegistry.addSpawn(EnityAus.class, 10, 2, 6, EnumCreatureType.monster, BiomeGenBase.beach, BiomeGenBase.desert, BiomeGenBase.plains, BiomeGenBase.forest, BiomeGenBase.extremeHills, BiomeGenBase.jungle);
+		LanguageRegistry.instance().addStringLocalization("entity.ipwnned_aussiecraft.AusEnity.name", "Entity AussieCraft");
+		
+		EntityRegistry.registerGlobalEntityID(EntityAusArrow.class, "AusArrow", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityAusArrow.class, "AusArrow", 2, this, 128, 1, true);
+		LanguageRegistry.instance().addStringLocalization("entity.ipwnned_aussiecraft.AusArrow.name", "Aus Arrow");
+		
+		GameRegistry.registerFuelHandler(new InfusedCoalFuelHandler());
 		MinecraftForge.setToolClass(opalPickaxe, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(opalOre, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(pinkOre, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(enrichedCoal, "pickaxe", 1);
 		MinecraftForge.setToolClass(opalAxe, "axe", 2);
 		MinecraftForge.setToolClass(opalShovel, "shovel", 2);
 		MinecraftForge.setToolClass(dopalPickaxe, "pickaxe", 3);
@@ -394,7 +422,6 @@ public class aussiecraft {
 		GameRegistry.registerItem(opalLegs, "Opal Leggings");
 		GameRegistry.registerItem(opalBoots, "Opal Boots");
 		GameRegistry.registerBlock(outbackBlock1, "Outback Dirt");
-		GameRegistry.registerItem(infusedCoal, "Infused Coal");
 		GameRegistry.registerItem(darkOpal, "Dark Opal");
 		GameRegistry.registerItem(dopalPickaxe, "Dark Opal Pickaxe");
 		GameRegistry.registerItem(dopalSword, "Dark Opal Sword");
@@ -414,6 +441,10 @@ public class aussiecraft {
 		GameRegistry.registerItem(pinkShovel, "Pink Diamond Shovel");
 		GameRegistry.registerItem(pinkHoe, "Pink Diamond Hoe");
 		GameRegistry.registerItem(pinkDiamond, "Pink Diamond");
+		GameRegistry.registerBlock(enrichedCoal, "Enriched Coal Ore");
+		GameRegistry.registerItem(Enrichedcoal, "Enriched Coal");
+		GameRegistry.registerItem(infusedCoal, "Infused Coal");
+		GameRegistry.registerItem(pinkdBow, "Pink Diamond Bow");
 		
 
 	}
@@ -437,7 +468,6 @@ public class aussiecraft {
 		LanguageRegistry.addName(opalLegs, "Opal Leggings");
 		LanguageRegistry.addName(opalBoots, "Opal Boots");
 		LanguageRegistry.addName(outbackBlock1, "Outback Dirt");
-		LanguageRegistry.addName(infusedCoal, "Infused Coal");
 		LanguageRegistry.addName(darkOpal, "Dark Opal");
 		LanguageRegistry.addName(dopalPickaxe, "Dark Opal Pickaxe");
 		LanguageRegistry.addName(dopalSword, "Dark Opal Sword");
@@ -457,6 +487,10 @@ public class aussiecraft {
 		LanguageRegistry.addName(pinkShovel, "Pink Diamond Shovel");
 		LanguageRegistry.addName(pinkHoe, "Pink Diamond Hoe");
 		LanguageRegistry.addName(pinkDiamond, "Pink Diamond");
+		LanguageRegistry.addName(enrichedCoal, "Enriched Coal Ore");
+		LanguageRegistry.addName(Enrichedcoal, "Enriched Coal");
+		LanguageRegistry.addName(infusedCoal, "Infused Coal");
+		LanguageRegistry.addName(pinkdBow, "Pink Diamond Bow");
 	}
 
 }

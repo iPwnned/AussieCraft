@@ -24,7 +24,7 @@ public class AusWorldGen implements IWorldGenerator {
 	}
 
 	private void generateSurface(World world, Random random, int chunkX, int chunkZ) {
-		for(int i = 0; i < 29; i++){
+		for(int i = 0; i < 18; i++){
         	int xCoord = chunkX + random.nextInt(16);
         	int yCoord = random.nextInt(100);
         	int zCoord = chunkZ + random.nextInt(16);
@@ -38,9 +38,15 @@ public class AusWorldGen implements IWorldGenerator {
         	int yCoord = random.nextInt(16);
         	int zCoord = chunkZ + random.nextInt(16);
         	
-        	(new WorldGenMinable(aussiecraft.pinkOre.blockID, 6)).generate(world, random, xCoord, yCoord, zCoord);
-        		
+        	(new WorldGenMinable(aussiecraft.pinkOre.blockID, 6)).generate(world, random, xCoord, yCoord, zCoord);		
         	}
+		for(int i = 0; i < 21; i++){
+        	int xCoord = chunkX + random.nextInt(16);
+        	int yCoord = random.nextInt(99);
+        	int zCoord = chunkZ + random.nextInt(16);
+        	
+        	(new WorldGenMinable(aussiecraft.enrichedCoal.blockID, 6)).generate(world, random, xCoord, yCoord, zCoord);
+		}
 	}
 
 	private void generateNether(World world, Random random, int i, int j) {

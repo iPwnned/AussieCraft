@@ -17,12 +17,12 @@ public class DopalArmor extends ItemArmor implements IArmorTextureProvider {
 	@Override
 	public String getArmorTextureFile(ItemStack itemstack) {
 		if(itemstack.itemID == aussiecraft.dopalHelmet.itemID || itemstack.itemID == aussiecraft.dopalPlate.itemID || itemstack.itemID == aussiecraft.dopalBoots.itemID){
-			return "/aussiecraft/dopal_1.png";
+			return "/mods/aussiecraft/textures/armor/dopal_1.png";
 		}
 		if(itemstack.itemID == aussiecraft.dopalLegs.itemID){
-			return "/aussiecraft/dopal_2.png";
+			return "/mods/aussiecraft/textures/armor/dopal_2.png";
 		}
-		else return "/aussiecraft/dopal_2.png";
+		else return "/mods/aussiecraft/textures/armor/dopal_2.png";
 	}
 	public String getTextureFile(){
 		return "/aussiecraft/aussiecraft_items.png";
